@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Company.pro.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Company.pro.DAL.Data.Contexts
 {
-    internal class CompanyDbContext : DbContext
+    public class CompanyDbContext : DbContext
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,5 +20,6 @@ namespace Company.pro.DAL.Data.Contexts
         {
             optionsBuilder.UseSqlServer("Server = .; Database = CompanyPro; Trusted_Connection = True ; TrustServerCertificate = True"); 
         }
+        public DbSet<Department> Department { get; set; }
     }
 }
