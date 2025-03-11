@@ -11,15 +11,20 @@ namespace Company.pro.DAL.Data.Contexts
 {
     public class CompanyDbContext : DbContext
     {
+        // CLR
+        public CompanyDbContext(DbContextOptions<CompanyDbContext> options) :base(options)
+        {
+            
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server = .; Database = CompanyPro; Trusted_Connection = True ; TrustServerCertificate = True"); 
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server = .; Database = CompanyPro; Trusted_Connection = True ; TrustServerCertificate = True"); 
+        //}
         public DbSet<Department> Department { get; set; }
     }
 }

@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace Company.pro.BLL.Repositories
 {
-    public class DapartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository
     {
         private readonly CompanyDbContext _context; //null
-        public DapartmentRepository()
+        // Ask CLR Create Object From CompanyDbContext
+        public DepartmentRepository(CompanyDbContext companyDbContext)
         {
-            _context = new CompanyDbContext();
+            _context = companyDbContext;
         }
         public IEnumerable<Department> GetAll()
         {
