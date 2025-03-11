@@ -34,7 +34,7 @@ namespace Company.pro.PL
 
             app.UseRouting();
 
-            app.UseAuthorization(); 
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
