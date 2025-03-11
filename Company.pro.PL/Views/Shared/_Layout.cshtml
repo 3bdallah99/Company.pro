@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/Company.pro.PL.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @*Start Header*@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -24,12 +25,17 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="Index">Department</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+    @*End Header*@
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
