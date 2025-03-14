@@ -23,7 +23,9 @@ namespace Company.pro.BLL.Repositories
         }
         public Department? Get(int Id)
         {
+            
             return _context.Department.Find(Id);
+
         }
         public int Add(Department model)
         {
