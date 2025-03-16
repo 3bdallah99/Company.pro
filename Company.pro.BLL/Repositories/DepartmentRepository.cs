@@ -17,37 +17,6 @@ namespace Company.pro.BLL.Repositories
 
         }
 
-        //private readonly CompanyDbContext _context; //null
-        //// Ask CLR Create Object From CompanyDbContext
-        //public DepartmentRepository(CompanyDbContext companyDbContext)
-        //{
-        //    _context = companyDbContext;
-        //}
-        //public IEnumerable<Department> GetAll()
-        //{
-        //    return _context.Department.ToList();
-        //}
-        //public Department? Get(int Id)
-        //{
-
-        //    return _context.Department.Find(Id);
-
-        //}
-        //public int Add(Department model)
-        //{
-        //    _context.Department.Add(model);  
-        //    return _context.SaveChanges();
-
-        //}
-        //public int Update(Department model)
-        //{
-        //    _context.Department.Update(model);
-        //    return _context.SaveChanges();
-        //}
-        //public int Delete(Department model)
-        //{
-        //    _context.Department.Remove(model);
-        //    return _context.SaveChanges();
-        //}
+        
     }
 }
