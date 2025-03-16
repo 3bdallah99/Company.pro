@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Company.pro.BLL.Repositories
 {
-    public class DepartmentRepository : GenericRepository<Department>, IDepartmentRepository
+    internal class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
     {
-
-        public DepartmentRepository(CompanyDbContext context) : base(context)
+        public EmployeeRepository(CompanyDbContext context) : base(context)
         {
-
+            
         }
+
 
         
     }
