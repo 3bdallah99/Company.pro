@@ -68,7 +68,7 @@ namespace Company.pro.DAL.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Hringdate")
+                    b.Property<DateTime>("HiringDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
