@@ -1,4 +1,5 @@
-﻿using Company.pro.BLL.Interfaces;
+﻿using AutoMapper;
+using Company.pro.BLL.Interfaces;
 using Company.pro.DAL.Models;
 using Company.pro.PL.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -8,20 +9,43 @@ namespace Company.pro.PL.Controllers
     public class EmployeeController : Controller
     {
         public readonly IEmployeeRepository _employeeRepository;
-        public EmployeeController(IEmployeeRepository employeeRepository) 
+        public readonly IDepartmentRepository _departmentRepository;
+        private readonly IMapper mapper;
+
+        public EmployeeController(IEmployeeRepository employeeRepository,
+            IDepartmentRepository departmentRepository,
+            IMapper mapper
+            ) 
         {
             _employeeRepository = employeeRepository;
+            _departmentRepository = departmentRepository;
+            this.mapper = mapper;
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(string? SearchInput)
         {
-            var employees = _employeeRepository.GetAll();
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrEmpty(SearchInput))
+            {
+                employees = _employeeRepository.GetAll();
+            }else
+            {
+                employees = _employeeRepository.GetByName(SearchInput);
+            }
+            // Dictionary : 3 Property
+            // 1.ViewData   : Transfer Extra Information From Controller (Action) To View 
+            //ViewData["Message"] = "Hello From ViewData ";
+
+            // 2.ViewBag    : Transfer Extra Information From Controller (Action) To View
+            ViewBag.Message = "Hello From ViewBag"; 
             return View(employees);
         }
         [HttpGet]
         public IActionResult Create()
         {
+            var departments = _departmentRepository.GetAll();
+            ViewData["departments"] = departments;
             return View(); 
         }
         [HttpPost]
@@ -29,23 +53,12 @@ namespace Company.pro.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var employee = new Employee()
-                {
-                    Name = model.Name,
-                    Address = model.Address,
-                    Age = model.Age,
-                    CreateAt = model.CreateAt,
-                    HiringDate = model.HiringDate,    
-                    Email = model.Email,
-                    IsActive = model.IsActive,
-                    IsDeleted = model.IsDeleted,
-                    Phone = model.Phone,
-                    Salary = model.Salary,
 
-                };
+                var employee = mapper.Map<Employee>(model);
                 var count = _employeeRepository.Add(employee);
                 if (count > 0)
                 {
+                    TempData["Message"] = "Employee is Created !!";
                     return RedirectToAction("Index");
                 }
             }
@@ -64,6 +77,8 @@ namespace Company.pro.PL.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
+            var departments = _departmentRepository.GetAll();
+            ViewData["departments"] = departments;
             return Details(id, "Edit");
         }
 

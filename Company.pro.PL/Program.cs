@@ -1,6 +1,8 @@
 using Company.pro.BLL.Interfaces;
 using Company.pro.BLL.Repositories;
 using Company.pro.DAL.Data.Contexts;
+using Company.pro.PL.Mapping;
+using Company.pro.PL.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.pro.PL
@@ -19,7 +21,10 @@ namespace Company.pro.PL
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             }); // Allow DI For CompanyDbContext  
-
+            builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+            builder.Services.AddScoped<IScopedService,ScopedService>(); //Per Requset
+            builder.Services.AddScoped<ITransentService,TransentService>(); //Per Operation 
+            builder.Services.AddScoped<ISengeltonService,SengeltonService>(); // Per App
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

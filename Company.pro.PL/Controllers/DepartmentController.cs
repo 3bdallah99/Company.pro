@@ -84,12 +84,13 @@ namespace Company.pro.PL.Controllers
         public IActionResult Delete( int? id)
         {
 
-            if (id is null) return BadRequest("Invalid Id"); // 400
+            //if (id is null) return BadRequest("Invalid Id"); // 400
 
-            var department = _departmentRepository.Get(id.Value);
-            if (department is null) return NotFound(new { StatusCode = 404, message = $"Department With Id : {id} is not found" });
+            //var department = _departmentRepository.Get(id.Value);
+            //if (department is null) return NotFound(new { StatusCode = 404, message = $"Department With Id : {id} is not found" });
 
-            return View(department);
+            //return View(department);
+            return Details(id , "Delete");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
