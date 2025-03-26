@@ -21,4 +21,4 @@ InputSearch.addEventListener("keyup" function () => {
     // Sending our request 
     xhr.send();
 }
-});
+);
