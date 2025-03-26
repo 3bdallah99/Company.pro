@@ -10,6 +10,11 @@ namespace Company.pro.PL.Mapping
         public EmployeeProfile()
         {
             CreateMap<CreateEmployeeDto, Employee>();
+
+            CreateMap<Employee, CreateEmployeeDto>()
+                //.ForMember(d => d.DepartmentName,o => o.MapFrom(S => S.Department.Name))
+                ;
+
         }
     }
 }
