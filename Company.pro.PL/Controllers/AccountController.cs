@@ -1,5 +1,6 @@
 ﻿using Company.pro.DAL.Models;
 using Company.pro.PL.Dtos;
+using Company.pro.PL.Helper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -97,6 +98,83 @@ namespace Company.pro.PL.Controllers
 		{
 			await _signInManager.SignOutAsync();
 			return RedirectToAction(nameof(SignIn));
+		}
+		#endregion
+
+		#region Forget Password
+		[HttpGet]
+		public  IActionResult ForgetPassword()
+		{
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> SendResetPasswordUrl(ForgetPasswordDto model)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = await _userManager.FindByEmailAsync(model.Email);
+				if (user is not null)
+				{
+					var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+					var url =Url.Action("ResetPassword", "Account", new { email = model.Email, token }, Request.Scheme);
+
+				var email = new Email()
+				{
+					To = model.Email,
+					Subject = "Reset Password",
+					Body = url
+				};
+				var Flag = EmailSettings.SendEmail(email);
+				if (Flag)
+				{
+					return RedirectToAction("CheckYourInbox");
+				}
+				}
+			}
+			ModelState.AddModelError("", "Invalid Reset Password Operation !!");
+			return View("ForgetPassword", model);
+		}
+		[HttpGet]
+		public IActionResult CheckYourInbox()
+		{
+			return View();
+		}
+		#endregion
+
+		#region MyRegion
+		[HttpGet]
+		public IActionResult ResetPassword(string email,string token)
+		{
+			TempData["Email"]=email;
+			TempData["Token"]=token;
+
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ResetPassword(ResetPasswordDto model)
+		{
+			if (ModelState.IsValid)
+			{
+				var email = TempData["Email"] as string;
+				var token = TempData["token"] as string;
+				
+				if (email is null || token is null)
+				{
+					return BadRequest("Invalid Operation");
+				}
+				var user = await _userManager.FindByEmailAsync(email);
+				if (user != null)
+				{
+					var result = await _userManager.ResetPasswordAsync(user, token,model.NewPassword);
+					if (result.Succeeded)
+					{
+						return RedirectToAction("SignIn");
+					}
+				}
+				ModelState.AddModelError("", "Invalid Reset Password Operation");
+			}
+			return View();
 		}
 		#endregion
 	}

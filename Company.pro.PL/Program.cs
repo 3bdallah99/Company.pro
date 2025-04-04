@@ -28,7 +28,8 @@ namespace Company.pro.PL
             builder.Services.AddScoped<ISengeltonService,SengeltonService>(); // Per App
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddIdentity<AppUser, IdentityRole>()
-                            .AddEntityFrameworkStores<CompanyDbContext>();
+                            .AddEntityFrameworkStores<CompanyDbContext>()
+                            .AddDefaultTokenProviders();
 
             builder.Services.ConfigureApplicationCookie(Config =>
             {
