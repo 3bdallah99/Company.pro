@@ -4,27 +4,25 @@ using Company.pro.BLL.Interfaces;
 using Company.pro.DAL.Models;
 using Company.pro.PL.Dtos;
 using Company.pro.PL.Helper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.pro.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        //public readonly IEmployeeRepository _employeeRepository;
-        //public readonly IDepartmentRepository _departmentRepository;
+        
         private readonly IMapper _mapper;
 
-        public EmployeeController(//IEmployeeRepository employeeRepository,
-                                  // IDepartmentRepository departmentRepository,
+        public EmployeeController(
            IUnitOfWork unitOfWork,
             IMapper mapper
             ) 
         {
             _unitOfWork = unitOfWork;
-            //_employeeRepository = employeeRepository;
-            //_departmentRepository = departmentRepository;
             _mapper = mapper;
         }
 
