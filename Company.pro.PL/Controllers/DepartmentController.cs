@@ -3,22 +3,22 @@ using Company.pro.BLL.Interfaces;
 using Company.pro.BLL.Repositories;
 using Company.pro.DAL.Models;
 using Company.pro.PL.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.pro.PL.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
-        //private readonly IDepartmentRepository _departmentRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         // Ask CLR Create Object From DepartmentRepository 
-        public DepartmentController(//IDepartmentRepository departmentRepository ,
+        public DepartmentController(
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
-            //_departmentRepository = departmentRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -51,7 +51,7 @@ namespace Company.pro.PL.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> Details(int? id, string viewName = "Details")
+        public async Task<IActionResult> Details([FromRoute] int? id, string viewName = "Details")
         {
             if (id is null) return BadRequest("Invalid Id"); // 400
 
@@ -63,7 +63,7 @@ namespace Company.pro.PL.Controllers
             return View(viewName, dto);
         }
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit([FromRoute]int? id)
         {
             return await Details(id, "Edit");
         }
