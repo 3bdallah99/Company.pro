@@ -176,6 +176,13 @@ namespace Company.pro.PL.Controllers
 			}
 			return View();
 		}
-		#endregion
-	}
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        #endregion
+    }
 }

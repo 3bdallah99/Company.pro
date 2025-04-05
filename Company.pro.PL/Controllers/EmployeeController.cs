@@ -119,6 +119,7 @@ namespace Company.pro.PL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id, CreateEmployeeDto model)
         {
             if (ModelState.IsValid)
@@ -138,6 +139,21 @@ namespace Company.pro.PL.Controllers
                 }
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> Search(string? SearchInput)
+        {
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrEmpty(SearchInput))
+            {
+                employees = await _unitOfWork.EmployeeRepository.GetAllAsync();
+            }
+            else
+            {
+                employees = await _unitOfWork.EmployeeRepository.GetByNameAsync(SearchInput);
+            }
+
+            return PartialView("EmployeePartialView/EmployeeTablePartialView", employees);
         }
     }
 }
