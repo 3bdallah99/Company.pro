@@ -26,7 +26,7 @@ namespace Company.pro.PL.Controllers
             _mapper = mapper;
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Index(string? SearchInput)
         {
             IEnumerable<Employee> employees;
