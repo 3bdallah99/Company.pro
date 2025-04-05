@@ -5,6 +5,7 @@ using Company.pro.DAL.Data.Contexts;
 using Company.pro.DAL.Models;
 using Company.pro.PL.Mapping;
 using Company.pro.PL.Services;
+using Company.pro.PL.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,7 @@ namespace Company.pro.PL
                             .AddEntityFrameworkStores<CompanyDbContext>()
                             .AddDefaultTokenProviders();
 
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
             builder.Services.ConfigureApplicationCookie(Config =>
             {
                 Config.LoginPath = "/Account/SignIn";
