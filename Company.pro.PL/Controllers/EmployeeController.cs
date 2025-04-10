@@ -1,4 +1,4 @@
-﻿        using AutoMapper;
+﻿using AutoMapper;
 using Company.pro.BLL;
 using Company.pro.BLL.Interfaces;
 using Company.pro.DAL.Models;
@@ -154,6 +154,8 @@ namespace Company.pro.PL.Controllers
             }
 
             return PartialView("EmployeePartialView/EmployeeTablePartialView", employees);
+
         }
+
     }
 }
